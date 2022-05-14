@@ -1,0 +1,35 @@
+name: CI_ANNOUNCE
+
+on:
+  push:
+    tags:        
+      - v*
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+
+env:
+  BUILD_CONFIGURATION: Release
+  NUGETAPIKEY: ${{ secrets.NUGETAPIKEY }}
+
+jobs:
+  # This workflow contains a single job called "build"
+  announce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: | 
+            3.1.x
+            5.0.x
+            6.0.x
+      - name: Set build.sh executable
+        run: chmod +x "${GITHUB_WORKSPACE}/build.sh"
+      - name: Announce
+        run: "${GITHUB_WORKSPACE}/build.sh Announce -Configuration ${BUILD_CONFIGURATION} -NugetApiKey ${NUGETAPIKEY}"

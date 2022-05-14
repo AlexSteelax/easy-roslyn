@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE0063: Использовать простой оператор using
+csharp_prefer_simple_using_statement = false
