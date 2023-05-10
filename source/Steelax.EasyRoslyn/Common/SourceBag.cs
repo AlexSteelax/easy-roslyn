@@ -26,7 +26,7 @@ namespace Steelax.EasyRoslyn.Common
             {
                 using var stream = File.Open(path, FileMode.Open);
 
-                SourceText = SourceText.From(stream, Encoding.UTF8);
+                SourceText = SourceText.From(stream, Encoding.UTF8, throwIfBinaryDetected: true, canBeEmbedded: true);
                 Path = path;
             }
         }
