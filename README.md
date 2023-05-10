@@ -10,7 +10,7 @@ EasyRoslyn is a simple wrapper around the standard library. This simplifies code
 
 ## Runtime Installation
 
-All stable packages are available on NuGet.
+All stable packages are available on [NuGet](https://www.nuget.org/packages/Steelax.EasyRoslyn/).
 
 ## Basic usage
 
