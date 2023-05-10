@@ -55,4 +55,7 @@ result
 result.TrySave(dir);
 ```
 
+## How to debug
+
+Just open the generated file or previously saved code. Then set breakpoints. Launch your application or you can attach to process.
 
