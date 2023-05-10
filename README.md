@@ -1,5 +1,5 @@
 # easy-roslyn
-| [![Steelax.EasyRoslyn](https://img.shields.io/nuget/v/Steelax.EasyRoslyn.svg)](https://www.nuget.org/packages/Steelax.EasyRoslyn) | [![Steelax.EasyRoslyn](https://img.shields.io/nuget/dt/Steelax.EasyRoslyn.svg)](https://www.nuget.org/packages/Steelax.EasyRoslyn/)
+[![Steelax.EasyRoslyn](https://img.shields.io/nuget/v/Steelax.EasyRoslyn.svg)](https://www.nuget.org/packages/Steelax.EasyRoslyn) [![Steelax.EasyRoslyn](https://img.shields.io/nuget/dt/Steelax.EasyRoslyn.svg)](https://www.nuget.org/packages/Steelax.EasyRoslyn/)
 
 EasyRoslyn is a simple wrapper around the standard library. This simplifies code generation and debugging.
 
