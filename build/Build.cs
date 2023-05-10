@@ -16,8 +16,8 @@ using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Serilog.Log;
 
-[CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
+[DotNetVerbosityMapping]
 class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -48,9 +48,9 @@ class Build : NukeBuild
         .Before(Restore)
         .Executes(() =>
         {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            EnsureCleanDirectory(OutputDirectory);
+            SourceDirectory.GlobDirectories("**/bin", "**/obj").DeleteDirectories();
+            TestsDirectory.GlobDirectories("**/bin", "**/obj").DeleteDirectories();
+            OutputDirectory.CreateOrCleanDirectory();
         });
     internal Target Restore => _ => _
         .Executes(() =>
@@ -97,9 +97,9 @@ class Build : NukeBuild
         .Requires(() => NugetApiKey)
         .Executes(() =>
         {
-            GlobFiles(OutputDirectory, "*.nupkg")
+            OutputDirectory.GlobFiles("*.nupkg")
                 .NotNull()
-                .Where(s => !s.EndsWith("symbols.nupkg"))
+                .Where(s => !s.Name.EndsWith("symbols.nupkg"))
                 .ForEach(file =>
                 {
                     DotNetNuGetPush(s => s
@@ -121,7 +121,10 @@ class Build : NukeBuild
                 .SetConfiguration(Configuration)
                 .EnableNoRestore()
                 .EnableNoBuild()
-                .DisableProcessLogOutput());
+
+                .SetVerbosity(DotNetVerbosity.Normal)
+                //.DisableProcessAssertZeroExitCode()
+                /*.DisableProcessLogOutput()*/);
         });
 
     internal Target Announce => _ => _
