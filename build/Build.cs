@@ -1,8 +1,5 @@
-using System;
-using System.Linq;
 using Nuke.Common;
 using Nuke.Common.CI;
-using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
@@ -10,11 +7,8 @@ using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.EnvironmentInfo;
-using static Nuke.Common.IO.FileSystemTasks;
-using static Nuke.Common.IO.PathConstruction;
+using System.Linq;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
-using static Serilog.Log;
 
 [ShutdownDotNetAfterServerBuild]
 [DotNetVerbosityMapping]
@@ -105,7 +99,6 @@ class Build : NukeBuild
                     DotNetNuGetPush(s => s
                         .SetTargetPath(file)
                         .SetSource("https://api.nuget.org/v3/index.json")
-                        //.SetSource("https://nuget.pkg.github.com/AlexSteelax/index.json")
                         .SetApiKey(NugetApiKey)
                         .EnableSkipDuplicate()
                     );
@@ -121,10 +114,7 @@ class Build : NukeBuild
                 .SetConfiguration(Configuration)
                 .EnableNoRestore()
                 .EnableNoBuild()
-
-                .SetVerbosity(DotNetVerbosity.Normal)
-                //.DisableProcessAssertZeroExitCode()
-                /*.DisableProcessLogOutput()*/);
+                .SetVerbosity(DotNetVerbosity.normal));
         });
 
     internal Target Announce => _ => _
