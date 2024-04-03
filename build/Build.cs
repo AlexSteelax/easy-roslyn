@@ -72,8 +72,10 @@ class Build : NukeBuild
         .DependsOn(Compile)
         .Executes(() =>
         {
+            var project = Solution.AllProjects.First(s => s.Name == "Steelax.EasyRoslyn");
+
             DotNetPack(settings => settings
-                .SetProject(Solution.GetProject("Steelax.EasyRoslyn"))
+                .SetProject(project)
                 .SetConfiguration(Configuration)
                 .EnableNoBuild()
                 .EnableNoRestore()
