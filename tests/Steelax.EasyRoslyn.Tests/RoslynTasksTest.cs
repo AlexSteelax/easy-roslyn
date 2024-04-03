@@ -33,9 +33,7 @@ namespace Steelax.EasyRoslyn.Tests
 
             var result = EasyRoslyn
                 .CreateCSharpBuilder(OutputKind.DynamicallyLinkedLibrary)
-                .ConfigureCompilationOptions(s => s.WithCurrentPlatform())
                 .ConfigureSources(s => s.FromText(code, "Class.cs"))
-                .ConfigureEmitOptions(s => s.WithDebugInformationFormat(DebugInformationFormat.PortablePdb))
                 .Build();
 
             Assert.True(result.Success, CompileResultLog(result));
